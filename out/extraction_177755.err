@@ -1,0 +1,4 @@
+which: no python in (/home/woodygan/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/woodygan/.local/bin:/opt/anaconda3/bin:/usr/local/cuda-10.1/bin:/usr/local/cuda-10.1/NsightCompute-2019.1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin)
+/var/spool/slurm/d/job177755/slurm_script: line 16: python: command not found
+/var/spool/slurm/d/job177755/slurm_script: line 17: python: command not found
+/var/spool/slurm/d/job177755/slurm_script: line 22: python: command not found

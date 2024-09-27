@@ -1,0 +1,12 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:43<00:43, 43.13s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 19.02s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.64s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 342.67it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+  0%|          | 0/10 [00:18<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 220, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p)
+  File "dpicl-pmixed.py", line 183, in predict
+    output=ensemble.priv_generate(row['context'], 10000, row['query'], max_length=max_new_tokens, top_k=None)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 358, in priv_generate
+    priv_output_dist[stop_token_id] = 0
+UnboundLocalError: local variable 'priv_output_dist' referenced before assignment

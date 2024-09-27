@@ -1,0 +1,9 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:43<00:43, 43.15s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 19.04s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.65s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 318.05it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+ 10%|█         | 1/10 [00:35<05:16, 35.21s/it] 20%|██        | 2/10 [00:35<01:59, 14.91s/it] 30%|███       | 3/10 [00:47<01:32, 13.22s/it] 40%|████      | 4/10 [00:47<00:49,  8.17s/it] 50%|█████     | 5/10 [01:20<01:25, 17.19s/it] 60%|██████    | 6/10 [02:18<02:04, 31.14s/it] 70%|███████   | 7/10 [03:12<01:55, 38.37s/it] 80%|████████  | 8/10 [04:13<01:31, 45.66s/it] 90%|█████████ | 9/10 [04:34<00:37, 37.94s/it]100%|██████████| 10/10 [04:55<00:00, 32.84s/it]100%|██████████| 10/10 [04:55<00:00, 29.58s/it]
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 17932.04it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 227, in <module>
+    file_name = f'pmixed-{dataset_name}-{testsize}-{model_id.split("/")[-1]}-{noEndtoEnd}.csv'
+NameError: name 'noEndtoEnd' is not defined

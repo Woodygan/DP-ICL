@@ -1,0 +1,19 @@
+/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/cuda/__init__.py:128: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11070). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at ../c10/cuda/CUDAFunctions.cpp:108.)
+  return torch._C._cuda_getDeviceCount() > 0
+Traceback (most recent call last):
+  File "dpicl.py", line 214, in <module>
+    raw_test_set = load_dataset(dataset_name, split="test[:1000]")
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/datasets/load.py", line 2074, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/datasets/load.py", line 1795, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/datasets/load.py", line 1671, in dataset_module_factory
+    raise e1 from None
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/datasets/load.py", line 1631, in dataset_module_factory
+    return HubDatasetModuleFactoryWithScript(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/datasets/load.py", line 1318, in get_module
+    trust_remote_code = resolve_trust_remote_code(self.trust_remote_code, self.name)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/datasets/load.py", line 131, in resolve_trust_remote_code
+    raise ValueError(
+ValueError: The repository for xsum contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/xsum.
+Please pass the argument `trust_remote_code=True` to allow custom code to be run.

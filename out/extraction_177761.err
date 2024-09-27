@@ -1,0 +1,17 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:46<02:20, 46.83s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:35<01:36, 48.11s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:25<00:48, 48.69s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:38<00:00, 34.84s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:38<00:00, 39.70s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 277.34it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]  0%|          | 0/10 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 219, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p)
+  File "dpicl-pmixed.py", line 183, in predict
+    output=ensemble.priv_generate(row['context'], 100, row['query'], max_length=max_new_tokens, top_k=None)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 326, in priv_generate
+    split_context = generate_ngrams(context, self.tokenizer, self.device, tokenwise=True, endtoend=True,n=gram_length)
+  File "/home/woodygan/DP-ICL/ngram.py", line 25, in generate_ngrams
+    ngram_text = tokenizer.decode(ngram)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/tokenization_utils_base.py", line 4016, in decode
+    return self._decode(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/tokenization_utils_fast.py", line 651, in _decode
+    text = self._tokenizer.decode(token_ids, skip_special_tokens=skip_special_tokens)
+TypeError: argument 'ids': 'list' object cannot be interpreted as an integer

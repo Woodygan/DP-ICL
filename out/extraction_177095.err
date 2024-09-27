@@ -1,0 +1,4 @@
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 20it [00:00, 223.50it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [02:46<02:46, 166.64s/it]Loading checkpoint shards: 100%|██████████| 2/2 [02:56<00:00, 74.35s/it] Loading checkpoint shards: 100%|██████████| 2/2 [02:56<00:00, 88.19s/it]
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:52<00:00, 52.23s/it]100%|██████████| 1/1 [00:52<00:00, 52.23s/it]
+  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 23077.33it/s]

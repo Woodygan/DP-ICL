@@ -1,0 +1,11 @@
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 7it [00:00, 69.14it/s]truncating documents...: 55it [00:00, 304.70it/s]truncating documents...: 108it [00:00, 401.84it/s]truncating documents...: 160it [00:00, 445.88it/s]truncating documents...: 206it [00:00, 447.53it/s]truncating documents...: 261it [00:00, 480.45it/s]truncating documents...: 310it [00:00, 462.50it/s]truncating documents...: 364it [00:00, 479.86it/s]truncating documents...: 418it [00:00, 493.93it/s]truncating documents...: 468it [00:01, 470.49it/s]truncating documents...: 520it [00:01, 480.99it/s]truncating documents...: 573it [00:01, 494.97it/s]truncating documents...: 625it [00:01, 501.45it/s]truncating documents...: 680it [00:01, 510.96it/s]truncating documents...: 732it [00:01, 507.41it/s]truncating documents...: 785it [00:01, 513.93it/s]truncating documents...: 837it [00:01, 502.11it/s]truncating documents...: 891it [00:01, 506.79it/s]truncating documents...: 947it [00:01, 517.63it/s]truncating documents...: 999it [00:02, 493.30it/s]truncating documents...: 1000it [00:02, 476.88it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:59<02:58, 59.60s/it]Loading checkpoint shards:  50%|█████     | 2/4 [02:00<02:00, 60.48s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:57<00:58, 58.89s/it]Loading checkpoint shards: 100%|██████████| 4/4 [03:11<00:00, 40.95s/it]Loading checkpoint shards: 100%|██████████| 4/4 [03:11<00:00, 47.79s/it]
+  0%|          | 0/50 [00:00<?, ?it/s]  0%|          | 0/50 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl.py", line 236, in <module>
+    predictions = predict(test_set, pipeline, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,batch_size=20)
+  File "dpicl.py", line 184, in predict
+    messages = [
+  File "dpicl.py", line 186, in <listcomp>
+    {"role": "system", "content": row['query']},
+TypeError: string indices must be integers

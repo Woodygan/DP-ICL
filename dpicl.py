@@ -26,8 +26,8 @@ dataset_name = "xsum"
 model_id = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 batch_size = 8
 max_input_length = 2048
-DEVICE = "cuda:2" if torch.cuda.is_available() else "cpu"
-access_token = "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"
+DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
+access_token = "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"
 cache_dir = "/data/james/.cache"
 
 class Evaluator:
@@ -176,38 +176,53 @@ def partition_n_gram(data, tokenizer, dataset_name, n):
         groups.append(template_input(row, dataset_name))
     return groups, n_grams
 
-def predict(test_set, pipeline, temperature, dataset_name, min_length):
+def predict(test_set, pipeline, temperature, dataset_name, min_length, top_k, top_p, batch_size=20):
     predictions = []
-    stop_token_ids = [tokenizer.eos_token_id, tokenizer.pad_token_id]
-    for idx, row in tqdm(enumerate(test_set), total=len(test_set)):
-        messages = [
-            {"role": "system", "content": row['query']},
-            {"role": "user", "content": f"Article: {row['context']}"},
-        ]
+    
+    # Convert the Dataset to a DataLoader
+    dataloader = DataLoader(test_set, batch_size=batch_size, shuffle=False)
+    
+    for batch in tqdm(dataloader, total=len(dataloader)):
+        messages = []
+        for i in range(len(batch['context'])):
+            message = [
+                {"role": "system", "content": batch['query'][i]},
+                {"role": "user", "content": f"Article: {batch['context'][i]}"},
+            ]
+            messages.append(message)
+        
         outputs = pipeline(
             messages,
             max_new_tokens=max_new_tokens,
+            min_new_tokens=min_length, 
+            do_sample=True,
+            top_k=top_k,
+            top_p=top_p,
+            temperature=temperature,
         )
-        predictions.append(outputs[0]["generated_text"][-1])
+        
+        # Extract only the 'content' from the assistant's responses
+        contents = [(output[0]['generated_text'][-1])['content'] for output in outputs]
+        predictions.extend(contents)
+    
     return predictions
 
 # Main execution
 
 if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(model_id,
-                                              padding_side="left",
-                                              use_fast=True,
-                                              token=access_token,
-                                              trust_remote_code=True,
-                                              cache_dir=cache_dir,
-                                              revision="step1000")
+                                          padding_side="left",
+                                          use_fast=True,
+                                          token=access_token,
+                                          trust_remote_code=True,
+                                          cache_dir=cache_dir)
     if tokenizer.pad_token is None:
         print("True")
         tokenizer.pad_token, tokenizer.pad_token_id = tokenizer.eos_token, tokenizer.eos_token_id
     if dataset_name == "PubMedQA":
         raw_test_set = load_dataset("qiaojin/PubMedQA", "pqa_labeled", cache_dir=cache_dir)['train']
     elif dataset_name == 'xsum':
-        raw_test_set = load_dataset(dataset_name, split="test[:1000]")
+        raw_test_set = load_dataset(dataset_name, split="test[:1000]", trust_remote_code=True)
     elif dataset_name == 'cnn':
         raw_test_set = load_dataset("abisee/cnn_dailymail", "3.0.0", split="test[:1000]", cache_dir=cache_dir)
 
@@ -223,15 +238,15 @@ if __name__ == "__main__":
     dir_name = "results"
     os.makedirs(dir_name, exist_ok=True)
 
-    predictions = predict(test_set, pipeline, tokenizer, temperature=0.8, dataset_name=dataset_name, min_length=10)
-    df = pd.DataFrame({'generations': predictions})
-    file_name = f'{dataset_name}_{model_name}.csv'
-    df.to_csv(os.path.join(dir_name, file_name))
-
+    predictions = predict(test_set, pipeline, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,batch_size=20)
     documents, references = [], []
     for idx, data in tqdm(enumerate(test_set), total=len(test_set)):
         documents.append(data['context'])
         references.append(data['summary'])
+    df = pd.DataFrame({'generations': predictions, 'references': references})
+    file_name = f'{dataset_name}_{model_id.split("/")[-1]}.csv'
+    df.to_csv(os.path.join(dir_name, file_name))
+
     evaluator = Evaluator()
 
     result_dict = evaluator.evaluate(predictions, references, documents)

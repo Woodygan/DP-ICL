@@ -6,7 +6,6 @@ import torch.nn.functional as F
 import numpy as np
 from math import comb
 import copy
-import matplotlib.pyplot as plt
 from scipy.optimize import bisect, brentq
 import os
 import tqdm
@@ -14,10 +13,10 @@ import functools
 from itertools import combinations
 import multiprocessing as mp
 import gc
-from n_gram import generate_ngrams
+from ngram import generate_ngrams
 
 class PMixED():
-    def __init__(self, model, num_ensemble, model_name, tokenizer,
+    def __init__(self, model, model_name, tokenizer,
                 device="cpu", q_budget=30, alpha=2, delta=1e-5,
                 p=0.3, eps=50, beta=0., lambd=None, threshold=None, screen_top_k=0,
                 sigma=None, accounting_method=None, 
@@ -33,7 +32,7 @@ class PMixED():
         self.delta = delta
         self.sigma = sigma
         self.accounting_method = accounting_method
-        self.num_ensemble = num_ensemble
+        self.num_ensemble = 100
         self.lambd = lambd
         self.lambdas = np.array([0 for _ in range(self.num_ensemble)])
         self.lambda_history = []
@@ -51,15 +50,6 @@ class PMixED():
         self.ls_cum = np.zeros(self.num_ensemble-2) 
         self.beta_array=[]
         self.context=[]
-        for size in range(1, self.num_ensemble+1):
-            def f(beta):
-                sub_eps = self.subsample_eps(self.alpha, self.p, size=size, beta=beta)
-                return (sub_eps - self.eps/self.q_budget)
-            if f(80)<0:
-                self.beta_array.append(80)
-            else:
-                self.beta_array.append(bisect(f, 0, 80, maxiter=20, disp=False))
-                print(bisect(f, 0, 80, maxiter=20, disp=False))  
     @staticmethod 
     def subsample_eps(alpha, p, **kwargs):
         '''
@@ -136,14 +126,21 @@ class PMixED():
         return lambd
     
     def beta_solver_bisection(self, size):
-        return self.beta_array[size-1]
+        def f(beta):
+            sub_eps = self.subsample_eps(self.alpha, self.p, size=size, beta=beta)
+            return (sub_eps - self.eps/self.q_budget)
+        if f(80)<0:
+            return 80
+        else:
+            return bisect(f, 0, 80, maxiter=20, disp=False)
+            
 
-    def poisson_subsample(self, p):
+    def poisson_subsample(self, number, p):
         '''
         Poisson Subsampling is equivalent to m ~ Binomial(n, p), 
         then sampling m without replacement from [N]
         '''
-        return np.random.choice(self.num_ensemble, np.random.binomial(self.num_ensemble, p))
+        return np.random.choice(number, np.random.binomial(number, p))
 
     def lambda_eq(self, p, p_pub):
         #x = min(self.beta * self.alpha * (self.alpha-1) -
@@ -219,21 +216,30 @@ class PMixED():
         self.priv_loss += loss
 
 
-    def gen_output_dist(self, text):
+    def gen_output_dist(self, question_ids, split_context, text,temperature):
         priv_dists = []
+        number=len(split_context)-1
         if self.accounting_method != "Dependent":
-            sampled = self.poisson_subsample(self.p)
+            sampled = self.poisson_subsample(number,self.p)
         else:
-            sampled = list(range(self.num_ensemble))
+            sampled = list(range(number))
         
         for i in sampled:
-            context = torch.cat([self.context[i], text], dim=0)
+            context = torch.cat([question_ids, split_context[i], text], dim=0).unsqueeze(0)
+            decoded_context = self.tokenizer.decode(context.squeeze())
+            #print(decoded_context)
             context = context.to(self.device)
             logits = self.pub_model(context).logits.squeeze()
+            if temperature < 1.0:
+                logits = logits / temperature
             priv_dists.append(F.softmax(logits, dim=-1))
-        
-        context = text.to(self.device)
+        context = torch.cat([question_ids, split_context[-1], text], dim=0).unsqueeze(0)
+        context = context.to(self.device)
+        decoded_context = self.tokenizer.decode(context.squeeze())
+        #print(decoded_context)
         logits = self.pub_model(context).logits.squeeze()
+        if temperature < 1.0:
+            logits = logits / temperature
         pub_dist = F.softmax(logits, dim=-1)
         
         return pub_dist, priv_dists
@@ -242,7 +248,6 @@ class PMixED():
         if len(priv_dists) == 0:
             self.num_non_sample += 1
             return pub_dist 
-
 
         if self.sigma is None:
             self.beta = self.beta_solver_bisection(len(priv_dists))
@@ -323,16 +328,23 @@ class PMixED():
     
 
     
-    def priv_generate(self, context, question, max_length, top_k=None):
-        stop_tokens = ["<|endoftext|>", "[PAD]", " [PAD]"]
-        self.context = generate_ngrams(context, self.tokenizer, self.num_ensemble, tokenwise=True, endtoend=True)
-        question_ids = self.tokenizer(question, return_tensors="pt", padding=True, truncation=True)["input_ids"].to(self.device)
-        stop_tokens_id = {self.tokenizer(t)['input_ids'][-1] for t in stop_tokens}
-        generated_token_ids = question_ids.clone()
+    def priv_generate(self, context, gram_length, question, max_length, temperature=1.0, top_k=None,min_length=15, tokenwise=True, endtoend=True, split=1):
+        question="Here is the query: "+question
+        print(context)
+        split_context = generate_ngrams(context, self.tokenizer, self.device, tokenwise=tokenwise, endtoend=endtoend, split=split,n=gram_length)
+        question_ids = self.tokenizer(question, return_tensors="pt", padding=True, truncation=True)["input_ids"].squeeze(0).to(self.device)
+        stop_tokens_id = set([self.tokenizer.eos_token_id, self.tokenizer.pad_token_id, 
+                          self.tokenizer.encode("\n")[0]])
+        generated_token_ids = torch.empty(0, dtype=torch.long, device=self.device)
+        number=len(split_context)-1
+        self.p=3.0/number
+        if(self.p>1):
+            self.p=1
+        print(self.p)
+        for i in range(max_length):
 
-        for _ in range(max_length):
             with torch.no_grad():
-                pub_dist, priv_dists = self.gen_output_dist(generated_token_ids)
+                pub_dist, priv_dists = self.gen_output_dist(question_ids, split_context, generated_token_ids,temperature)
             
             pub_dist = pub_dist[-1, :]
             if priv_dists:
@@ -350,12 +362,16 @@ class PMixED():
 
                     pub_dist = F.softmax(pub_logits, dim=-1).squeeze(0)
                     priv_dists = [F.softmax(priv_logit, dim=-1).squeeze(0) for priv_logit in priv_logits]
-
             priv_output_dist = self.gen_priv_output_dist(pub_dist, priv_dists)
-            next_token_id = priv_output_dist.multinomial(1).to(self.device)
-
-            if next_token_id.item() in stop_tokens_id:
+            if i < min_length:
+                for stop_token_id in stop_tokens_id:
+                    priv_output_dist[stop_token_id] = 0
+                priv_output_dist = priv_output_dist / priv_output_dist.sum() 
+            next_token_id = priv_output_dist.multinomial(1).long().to(self.device)
+            #print(f'Generated token "{self.tokenizer.decode(next_token_id)}"')
+            if next_token_id.cpu().item() in stop_tokens_id:
                 break
+
             
             generated_token_ids = torch.cat([generated_token_ids, next_token_id], dim=-1)
 

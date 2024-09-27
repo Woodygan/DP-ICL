@@ -1,0 +1,38 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:44<02:12, 44.11s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:58<02:03, 61.70s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:42<00:53, 53.63s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:54<00:00, 37.52s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:54<00:00, 43.74s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 331.21it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]We detected that you are passing `past_key_values` as a tuple and this is deprecated and will be removed in v4.43. Please use an appropriate `Cache` class (https://huggingface.co/docs/transformers/v4.41.3/en/internal/generation_utils#transformers.Cache)
+  0%|          | 0/10 [01:36<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 220, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p)
+  File "dpicl-pmixed.py", line 183, in predict
+    output=ensemble.priv_generate(row['context'], 100, row['query'], max_length=max_new_tokens, top_k=None)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 335, in priv_generate
+    pub_dist, priv_dists = self.gen_output_dist(question_ids, split_context, generated_token_ids)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 230, in gen_output_dist
+    logits = self.pub_model(context).logits.squeeze()
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 1189, in forward
+    outputs = self.model(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 1001, in forward
+    layer_outputs = decoder_layer(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 734, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 615, in forward
+    bsz, q_len, _ = hidden_states.size()
+ValueError: not enough values to unpack (expected 3, got 2)

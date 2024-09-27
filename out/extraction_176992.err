@@ -1,0 +1,12 @@
+Using the latest cached version of the module from /home/woodygan/.cache/huggingface/modules/datasets_modules/datasets/xsum/082863bf4754ee058a5b6f6525d0cb2b18eadb62c7b370b095d1364050a52b71 (last modified on Sun Sep 15 14:45:42 2024) since it couldn't be found locally at xsum, or remotely on the Hugging Face Hub.
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 20it [00:00, 231.05it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [02:14<02:14, 134.23s/it]Loading checkpoint shards: 100%|██████████| 2/2 [02:21<00:00, 59.46s/it] Loading checkpoint shards: 100%|██████████| 2/2 [02:21<00:00, 70.68s/it]
+  0%|          | 0/1 [00:00<?, ?it/s]  0%|          | 0/1 [00:41<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-gemma.py", line 239, in <module>
+    predictions = predict(test_set, pipeline, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,batch_size=20)
+  File "dpicl-gemma.py", line 204, in predict
+    contents = [outputs[0]["generated_text"][-1]["content"].strip() for output in outputs]
+  File "dpicl-gemma.py", line 204, in <listcomp>
+    contents = [outputs[0]["generated_text"][-1]["content"].strip() for output in outputs]
+TypeError: list indices must be integers or slices, not str

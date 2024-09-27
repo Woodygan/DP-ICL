@@ -1,0 +1,31 @@
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 1it [00:00,  1.77it/s]truncating documents...: 45it [00:00, 90.22it/s]truncating documents...: 95it [00:00, 180.98it/s]truncating documents...: 146it [00:00, 259.19it/s]truncating documents...: 192it [00:00, 310.46it/s]truncating documents...: 246it [00:01, 369.97it/s]truncating documents...: 293it [00:01, 396.32it/s]truncating documents...: 342it [00:01, 420.24it/s]truncating documents...: 394it [00:01, 447.64it/s]truncating documents...: 443it [00:01, 459.47it/s]truncating documents...: 492it [00:01, 440.71it/s]truncating documents...: 545it [00:01, 465.15it/s]truncating documents...: 598it [00:01, 482.64it/s]truncating documents...: 652it [00:01, 499.05it/s]truncating documents...: 703it [00:02, 497.01it/s]truncating documents...: 755it [00:02, 503.27it/s]truncating documents...: 806it [00:02, 488.43it/s]truncating documents...: 859it [00:02, 492.69it/s]truncating documents...: 912it [00:02, 502.63it/s]truncating documents...: 963it [00:02, 503.86it/s]truncating documents...: 1000it [00:02, 384.28it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [01:26<04:18, 86.17s/it]Loading checkpoint shards:  50%|█████     | 2/4 [03:08<03:11, 95.69s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [04:26<01:27, 87.56s/it]Loading checkpoint shards: 100%|██████████| 4/4 [04:59<00:00, 66.02s/it]Loading checkpoint shards: 100%|██████████| 4/4 [04:59<00:00, 74.85s/it]
+  0%|          | 0/50 [00:00<?, ?it/s]Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+  0%|          | 0/50 [00:41<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl.py", line 241, in <module>
+    predictions = predict(test_set, pipeline, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,batch_size=20)
+  File "dpicl.py", line 205, in predict
+    contents = [(output['generated_text'][-1])['content'] for output in outputs]
+  File "dpicl.py", line 205, in <listcomp>
+    contents = [(output['generated_text'][-1])['content'] for output in outputs]
+TypeError: list indices must be integers or slices, not str

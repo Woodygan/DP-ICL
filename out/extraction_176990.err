@@ -1,0 +1,6 @@
+Using the latest cached version of the module from /home/woodygan/.cache/huggingface/modules/datasets_modules/datasets/xsum/082863bf4754ee058a5b6f6525d0cb2b18eadb62c7b370b095d1364050a52b71 (last modified on Sun Sep 15 14:45:42 2024) since it couldn't be found locally at xsum, or remotely on the Hugging Face Hub.
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 20it [00:00, 201.36it/s]
+Downloading shards:   0%|          | 0/2 [00:00<?, ?it/s]Downloading shards:  50%|█████     | 1/2 [01:27<01:27, 87.06s/it]Downloading shards: 100%|██████████| 2/2 [01:31<00:00, 38.57s/it]Downloading shards: 100%|██████████| 2/2 [01:31<00:00, 45.85s/it]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [01:00<01:00, 60.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:04<00:00, 27.22s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:04<00:00, 32.14s/it]
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:32<00:00, 32.33s/it]100%|██████████| 1/1 [00:32<00:00, 32.33s/it]
+  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 25266.89it/s]

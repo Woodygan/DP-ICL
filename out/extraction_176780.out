@@ -1,0 +1,19 @@
+Which python: /home/woodygan/.conda/envs/dpicl/bin/python
+Python version: Python 3.8.19
+Sys.executable: /home/woodygan/.conda/envs/dpicl/bin/python
+PATH: /home/woodygan/.conda/envs/dpicl/bin:/opt/anaconda3/condabin:/home/woodygan/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/woodygan/.local/bin:/opt/anaconda3/bin:/usr/local/cuda-10.1/bin:/usr/local/cuda-10.1/NsightCompute-2019.1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+VIRTUAL_ENV: 
+True
+rouge1_fmeasure -> 27.63
+rouge1_precision -> 22.42
+rouge1_recall -> 37.50
+rouge2_fmeasure -> 7.81
+rouge2_precision -> 6.27
+rouge2_recall -> 10.83
+rougeL_fmeasure -> 19.95
+rougeL_precision -> 16.16
+rougeL_recall -> 27.18
+rougeLsum_fmeasure -> 19.96
+rougeLsum_precision -> 16.16
+rougeLsum_recall -> 27.19
+OrderedDict([('rouge1_fmeasure', 0.2762930393218994), ('rouge1_precision', 0.22421041131019592), ('rouge1_recall', 0.3749620020389557), ('rouge2_fmeasure', 0.07807473093271255), ('rouge2_precision', 0.06270146369934082), ('rouge2_recall', 0.10826233774423599), ('rougeL_fmeasure', 0.19954995810985565), ('rougeL_precision', 0.16158738732337952), ('rougeL_recall', 0.2718278169631958), ('rougeLsum_fmeasure', 0.1995934396982193), ('rougeLsum_precision', 0.16162310540676117), ('rougeLsum_recall', 0.27188336849212646)])

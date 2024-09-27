@@ -1,0 +1,3 @@
+Using the latest cached version of the module from /home/woodygan/.cache/huggingface/modules/datasets_modules/datasets/xsum/082863bf4754ee058a5b6f6525d0cb2b18eadb62c7b370b095d1364050a52b71 (last modified on Sun Sep 15 14:45:42 2024) since it couldn't be found locally at xsum, or remotely on the Hugging Face Hub.
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 20it [00:00, 323.16it/s]
+Downloading shards:   0%|          | 0/2 [00:00<?, ?it/s]slurmstepd: error: *** JOB 176991 ON allegro-adams CANCELLED AT 2024-09-16T12:04:56 ***

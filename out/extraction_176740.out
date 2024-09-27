@@ -1,0 +1,10 @@
+Which python: /home/woodygan/.conda/envs/dpicl/bin/python
+Python version: Python 3.8.19
+Sys.executable: /home/woodygan/.conda/envs/dpicl/bin/python
+PATH: /home/woodygan/.conda/envs/dpicl/bin:/opt/anaconda3/condabin:/home/woodygan/.vscode-server/cli/servers/Stable-dc96b837cf6bb4af9cd736aa3af08cf8279f7685/server/bin/remote-cli:/home/woodygan/.local/bin:/opt/anaconda3/bin:/usr/local/cuda-10.1/bin:/usr/local/cuda-10.1/NsightCompute-2019.1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+VIRTUAL_ENV: 
+True
+The repository for xsum contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/xsum.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N] 

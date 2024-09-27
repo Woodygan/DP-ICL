@@ -1,0 +1,23 @@
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 1it [00:00,  2.18it/s]truncating documents...: 76it [00:00, 179.27it/s]truncating documents...: 166it [00:00, 360.84it/s]truncating documents...: 248it [00:00, 481.97it/s]truncating documents...: 323it [00:00, 554.91it/s]truncating documents...: 414it [00:00, 654.20it/s]truncating documents...: 493it [00:01, 636.54it/s]truncating documents...: 578it [00:01, 694.73it/s]truncating documents...: 664it [00:01, 738.79it/s]truncating documents...: 745it [00:01, 757.75it/s]truncating documents...: 825it [00:01, 761.48it/s]truncating documents...: 909it [00:01, 780.23it/s]truncating documents...: 997it [00:01, 805.04it/s]truncating documents...: 1000it [00:01, 586.32it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [04:07<12:23, 247.95s/it]Loading checkpoint shards:  50%|█████     | 2/4 [07:51<07:46, 233.39s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [09:47<02:59, 179.95s/it]Loading checkpoint shards: 100%|██████████| 4/4 [09:59<00:00, 113.64s/it]Loading checkpoint shards: 100%|██████████| 4/4 [09:59<00:00, 149.88s/it]
+  0%|          | 0/50 [00:00<?, ?it/s]Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+slurmstepd: error: *** JOB 176981 ON ink-mia CANCELLED AT 2024-09-16T10:48:58 ***
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.

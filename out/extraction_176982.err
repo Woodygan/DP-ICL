@@ -1,0 +1,31 @@
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 99.61it/s]truncating documents...: 20it [00:00, 167.94it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [04:23<13:09, 263.32s/it]Loading checkpoint shards:  50%|█████     | 2/4 [06:08<05:40, 170.04s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [07:44<02:16, 136.52s/it]Loading checkpoint shards: 100%|██████████| 4/4 [08:01<00:00, 89.25s/it] Loading checkpoint shards: 100%|██████████| 4/4 [08:01<00:00, 120.37s/it]
+  0%|          | 0/1 [00:00<?, ?it/s]Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+  0%|          | 0/1 [00:35<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-llama.py", line 237, in <module>
+    predictions = predict(test_set, pipeline, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,batch_size=20)
+  File "dpicl-llama.py", line 202, in predict
+    contents = [output['content'] for output in outputs]
+  File "dpicl-llama.py", line 202, in <listcomp>
+    contents = [output['content'] for output in outputs]
+TypeError: list indices must be integers or slices, not str

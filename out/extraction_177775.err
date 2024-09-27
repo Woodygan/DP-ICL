@@ -1,0 +1,10 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:42<02:08, 42.86s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:27<01:27, 43.68s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:10<00:43, 43.41s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:20<00:00, 30.24s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:20<00:00, 35.06s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 391.18it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]We detected that you are passing `past_key_values` as a tuple and this is deprecated and will be removed in v4.43. Please use an appropriate `Cache` class (https://huggingface.co/docs/transformers/v4.41.3/en/internal/generation_utils#transformers.Cache)
+  0%|          | 0/10 [00:51<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 220, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p)
+  File "dpicl-pmixed.py", line 186, in predict
+    predictions.append(content.split("Answer:")[-1])
+NameError: name 'content' is not defined

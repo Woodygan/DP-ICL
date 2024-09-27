@@ -1,0 +1,14 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:43<00:43, 43.16s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 19.04s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.66s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 358.90it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+  0%|          | 0/10 [00:03<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 221, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,endtoend=False,n_length=n_length)
+  File "dpicl-pmixed.py", line 184, in predict
+    output=ensemble.priv_generate(row['context'], n_length, row['query'], temperature=temperature, max_length=max_new_tokens, top_k=None,tokenwise=tokenwise, endtoend=endtoend,split=split)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 342, in priv_generate
+    pub_dist, priv_dists = self.gen_output_dist(question_ids, split_context, generated_token_ids,temperature)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 234, in gen_output_dist
+    logits = pub_logits / temperature
+NameError: name 'pub_logits' is not defined

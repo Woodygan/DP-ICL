@@ -1,0 +1,5 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:43<00:43, 43.40s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 19.15s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.79s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 195.33it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+ 10%|█         | 1/10 [00:11<01:45, 11.77s/it] 20%|██        | 2/10 [00:14<00:52,  6.57s/it] 30%|███       | 3/10 [00:18<00:36,  5.17s/it] 40%|████      | 4/10 [00:20<00:24,  4.17s/it] 50%|█████     | 5/10 [00:24<00:19,  3.98s/it] 60%|██████    | 6/10 [00:33<00:22,  5.63s/it] 70%|███████   | 7/10 [00:41<00:18,  6.31s/it] 80%|████████  | 8/10 [00:50<00:14,  7.29s/it] 90%|█████████ | 9/10 [00:54<00:06,  6.29s/it]100%|██████████| 10/10 [00:57<00:00,  5.14s/it]100%|██████████| 10/10 [00:57<00:00,  5.71s/it]
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 21172.66it/s]

@@ -1,0 +1,10 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:43<02:10, 43.51s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:29<01:29, 44.82s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:23<00:48, 48.94s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:42<00:00, 37.47s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:42<00:00, 40.74s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 350.79it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]We detected that you are passing `past_key_values` as a tuple and this is deprecated and will be removed in v4.43. Please use an appropriate `Cache` class (https://huggingface.co/docs/transformers/v4.41.3/en/internal/generation_utils#transformers.Cache)
+  0%|          | 0/10 [00:58<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 220, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p)
+  File "dpicl-pmixed.py", line 184, in predict
+    output=tokenizer.decode(output).squeeze(0)
+AttributeError: 'str' object has no attribute 'squeeze'

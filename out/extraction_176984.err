@@ -1,0 +1,4 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [02:29<07:27, 149.00s/it]Loading checkpoint shards:  50%|█████     | 2/4 [03:53<03:42, 111.30s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [05:17<01:38, 98.65s/it] Loading checkpoint shards: 100%|██████████| 4/4 [05:34<00:00, 66.45s/it]Loading checkpoint shards: 100%|██████████| 4/4 [05:34<00:00, 83.65s/it]
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+/home/woodygan/.conda/envs/dpicl/lib/python3.8/site-packages/transformers/generation/utils.py:1258: UserWarning: Using the model-agnostic default `max_length` (=20) to control the generation length. We recommend setting `max_new_tokens` to control the maximum length of the generation.
+  warnings.warn(

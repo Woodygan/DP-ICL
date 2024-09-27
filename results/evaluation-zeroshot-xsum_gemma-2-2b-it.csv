@@ -1,0 +1,2 @@
+rouge1_fmeasure,rouge1_precision,rouge1_recall,rouge2_fmeasure,rouge2_precision,rouge2_recall,rougeL_fmeasure,rougeL_precision,rougeL_recall,rougeLsum_fmeasure,rougeLsum_precision,rougeLsum_recall
+0.0695149376988411,0.08429770171642303,0.07177196443080902,0.0,0.0,0.0,0.051969014108181,0.06108354404568672,0.05555376410484314,0.05883117765188217,0.0668734461069107,0.0640682578086853

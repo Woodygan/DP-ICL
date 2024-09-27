@@ -1,0 +1,13 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:42<02:08, 42.90s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:25<01:25, 42.99s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:08<00:42, 42.86s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:19<00:00, 30.10s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:19<00:00, 34.80s/it]
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 10it [00:00, 360.53it/s]
+  0%|          | 0/10 [00:00<?, ?it/s]  0%|          | 0/10 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-pmixed.py", line 220, in <module>
+    predictions = predict(test_set, ensemble_model, tokenizer, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p)
+  File "dpicl-pmixed.py", line 183, in predict
+    output=ensemble.priv_generate(row['context'], 10000, row['query'], max_length=max_new_tokens, top_k=None)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 334, in priv_generate
+    pub_dist, priv_dists = self.gen_output_dist(question_ids, split_context, generated_token_ids)
+  File "/home/woodygan/DP-ICL/pmixedcopy.py", line 228, in gen_output_dist
+    context = torch.cat([question_ids, split_context[i], text], dim=0).unsqueeze(0)
+RuntimeError: Tensors must have same number of dimensions: got 1 and 2

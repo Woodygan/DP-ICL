@@ -1,0 +1,31 @@
+truncating documents...: 0it [00:00, ?it/s]truncating documents...: 20it [00:00, 663.40it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.11it/s]Loading checkpoint shards:  50%|█████     | 2/4 [01:51<02:10, 65.30s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [04:21<01:44, 104.03s/it]Loading checkpoint shards: 100%|██████████| 4/4 [04:36<00:00, 68.82s/it] Loading checkpoint shards: 100%|██████████| 4/4 [04:36<00:00, 69.06s/it]
+  0%|          | 0/1 [00:00<?, ?it/s]Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+  0%|          | 0/1 [00:50<?, ?it/s]
+Traceback (most recent call last):
+  File "dpicl-llama.py", line 239, in <module>
+    predictions = predict(test_set, pipeline, temperature=temp, dataset_name=dataset_name, min_length=min_new_tokens,top_k=top_k,top_p=top_p,batch_size=20)
+  File "dpicl-llama.py", line 204, in predict
+    contents = [output[0]['content'] for output in outputs]
+  File "dpicl-llama.py", line 204, in <listcomp>
+    contents = [output[0]['content'] for output in outputs]
+KeyError: 'content'
