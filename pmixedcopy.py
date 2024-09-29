@@ -14,11 +14,12 @@ from itertools import combinations
 import multiprocessing as mp
 import gc
 from ngram import generate_ngrams
+from scipy.special import logsumexp
 
 class PMixED():
     def __init__(self, model, model_name, tokenizer,
                 device="cpu", q_budget=30, alpha=2, delta=1e-5,
-                p=0.3, eps=50, beta=0., lambd=None, threshold=None, screen_top_k=0,
+                Ex_num=3.0, eps=50, beta=0., lambd=None, threshold=None, screen_top_k=0,
                 sigma=None, accounting_method=None, 
     ):
         self.device=device
@@ -28,7 +29,8 @@ class PMixED():
         self.alpha = alpha 
         self.eps = eps
         self.priv_loss = 0
-        self.p = p 
+        self.Ex_num=Ex_num
+        self.p = 0.0 
         self.delta = delta
         self.sigma = sigma
         self.accounting_method = accounting_method
@@ -50,6 +52,7 @@ class PMixED():
         self.ls_cum = np.zeros(self.num_ensemble-2) 
         self.beta_array=[]
         self.context=[]
+        self.vocab_size=self.tokenizer.vocab_size
     @staticmethod 
     def subsample_eps(alpha, p, **kwargs):
         '''
@@ -69,7 +72,6 @@ class PMixED():
             return 0
         return (np.log((size - 1)/size + np.exp((alpha-1) * 4 * beta * alpha) / size ) 
                 / (alpha-1))
-
     @staticmethod 
     def noisy_privacy_loss(alpha, size, lambd, sigma):
         return (lambd / size)**2 * alpha / sigma**2 
@@ -123,6 +125,7 @@ class PMixED():
             lambd = 1 
         else:
             lambd = bisect(f, 0, 1, maxiter=20, disp=False)
+        print(lambd)
         return lambd
     
     def beta_solver_bisection(self, size):
@@ -328,40 +331,38 @@ class PMixED():
     
 
     
-    def priv_generate(self, context, gram_length, question, max_length, temperature=1.0, top_k=None,min_length=15, tokenwise=True, endtoend=True, split=1):
+    def priv_generate(self, context, gram_length, question, min_length, max_length, temperature=1.0, top_k=None, tokenwise=True, endtoend=True, split=1):
         question="Here is the query: "+question
-        print(context)
         split_context = generate_ngrams(context, self.tokenizer, self.device, tokenwise=tokenwise, endtoend=endtoend, split=split,n=gram_length)
         question_ids = self.tokenizer(question, return_tensors="pt", padding=True, truncation=True)["input_ids"].squeeze(0).to(self.device)
         stop_tokens_id = set([self.tokenizer.eos_token_id, self.tokenizer.pad_token_id, 
                           self.tokenizer.encode("\n")[0]])
         generated_token_ids = torch.empty(0, dtype=torch.long, device=self.device)
         number=len(split_context)-1
-        self.p=3.0/number
-        if(self.p>1):
-            self.p=1
-        print(self.p)
+
+        self.p=self.Ex_num/number
+
+        if(self.p>=0.99):
+            self.p=0.99
         for i in range(max_length):
-
             with torch.no_grad():
-                pub_dist, priv_dists = self.gen_output_dist(question_ids, split_context, generated_token_ids,temperature)
-            
-            pub_dist = pub_dist[-1, :]
-            if priv_dists:
-                priv_dists = [priv_dist[-1, :] for priv_dist in priv_dists]
+                pub_dist, priv_dists = self.gen_output_dist(question_ids, split_context, generated_token_ids,temperature) 
+                pub_dist = pub_dist[-1, :]
+                if priv_dists:
+                    priv_dists = [priv_dist[-1, :] for priv_dist in priv_dists]
 
-                if top_k is not None:
-                    pub_logits = torch.log(pub_dist).view(1, -1)
-                    pub_logits, idxs_remov = self.top_k_filtering(pub_logits, top_k)
-                    
-                    priv_logits = []
-                    for priv_dist in priv_dists:
-                        priv_logit = torch.log(priv_dist).view(1, -1)
-                        priv_logit[idxs_remov] = -float("Inf")
-                        priv_logits.append(priv_logit)
+                    if top_k is not None:
+                        pub_logits = torch.log(pub_dist).view(1, -1)
+                        pub_logits, idxs_remov = self.top_k_filtering(pub_logits, top_k)
+                        
+                        priv_logits = []
+                        for priv_dist in priv_dists:
+                            priv_logit = torch.log(priv_dist).view(1, -1)
+                            priv_logit[idxs_remov] = -float("Inf")
+                            priv_logits.append(priv_logit)
 
-                    pub_dist = F.softmax(pub_logits, dim=-1).squeeze(0)
-                    priv_dists = [F.softmax(priv_logit, dim=-1).squeeze(0) for priv_logit in priv_logits]
+                        pub_dist = F.softmax(pub_logits, dim=-1).squeeze(0)
+                        priv_dists = [F.softmax(priv_logit, dim=-1).squeeze(0) for priv_logit in priv_logits]
             priv_output_dist = self.gen_priv_output_dist(pub_dist, priv_dists)
             if i < min_length:
                 for stop_token_id in stop_tokens_id:

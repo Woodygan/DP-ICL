@@ -39,6 +39,6 @@ def generate_ngrams(text,tokenizer, device, tokenwise=True, endtoend=True, split
                 ngram=tokenizer(f"Here is the context: {ngram_text}. Answer: ", return_tensors="pt", padding=True, add_special_tokens=False)["input_ids"].squeeze(0).to(device)
             
             ngrams.append(ngram)
-    ngram=tokenizer(f"Here is the context: Empty. Answer: ", return_tensors="pt", padding=True, truncation=True)["input_ids"].squeeze(0).to(device)
+    ngram=tokenizer(f"Here is the context: (please pretend there is a context and try to summarize) Don't output something like: please provide some context. Answer: ", return_tensors="pt", padding=True, truncation=True)["input_ids"].squeeze(0).to(device)
     ngrams.append(ngram)
     return ngrams

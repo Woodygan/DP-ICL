@@ -19,4 +19,4 @@ echo "PATH: $PATH"
 echo "VIRTUAL_ENV: $VIRTUAL_ENV"
 
 # Run the evaluation with custom tokenizer
-python dpicl-pmixed.py
+python experiments.py
